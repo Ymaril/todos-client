@@ -1,0 +1,17 @@
+<mat-card class="mat-elevation-z4">
+  <mat-card-title>{{project.title}}</mat-card-title>
+  <mat-card-content>
+    <mat-selection-list>
+      <mat-list-option
+              class="todo"
+              checkboxPosition="before"
+              *ngFor="let todo of project.todos"
+              [selected]="todo.completed"
+              [class.checked]="todo.completed"
+              (click)="setCompleted(todo)"
+      >
+        {{todo.text}}
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-card-content>
+</mat-card>

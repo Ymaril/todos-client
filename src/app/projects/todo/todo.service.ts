@@ -4,20 +4,22 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { Project } from './model/Project';
+import { Todo } from '../../model/Todo';
 import { plainToClass } from 'class-transformer';
 
 @Injectable({ providedIn: 'root' })
-export class ProjectService {
-  private projectsUrl = 'https://mighty-dawn-42014.herokuapp.com/projects';
+export class TodoService {
+  private todosUrl = 'https://mighty-dawn-42014.herokuapp.com/todos';
 
   constructor(private http: HttpClient) { }
 
-  getProjects(): Observable<Project[]> {
-    return this.http.get<any[]>(this.projectsUrl, {responseType: 'json'})
+  updateTodo(todo: Todo): Observable<Todo> {
+    const url = `${this.todosUrl}/${todo.id}`;
+
+    return this.http.patch<any[]>(url, {todo: todo})
       .pipe(
-        map(data => plainToClass(Project, data)),
-        catchError(this.handleError<Project[]>('getProjects', []))
+        map(data => plainToClass(Todo, data as Object)),
+        catchError(this.handleError<Todo>('setCompleted', todo))
       );
   }
 

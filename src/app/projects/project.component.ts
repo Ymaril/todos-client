@@ -1,21 +1,21 @@
 import { Component, Input } from '@angular/core';
 import { Project } from '../model/Project';
+import { Todo } from '../model/Todo';
+import { TodoService } from './todo/todo.service';
 
 @Component({
   selector: 'app-project',
-  template: `
-    <mat-card class="mat-elevation-z4">
-      <mat-card-title>{{project.title}}</mat-card-title>
-      <mat-card-content>
-        <mat-selection-list>
-          <mat-list-option *ngFor="let todo of project.todos">
-            {{todo.text}}
-          </mat-list-option>
-        </mat-selection-list>
-      </mat-card-content>
-    </mat-card>
-  `
+  templateUrl: 'project.component.html',
+  styleUrls: ['project.component.css']
 })
 export class ProjectComponent {
   @Input() project: Project;
+
+  constructor(private todoService: TodoService) { }
+
+  public setCompleted(todo: Todo) {
+    todo.completed = !todo.completed;
+
+    this.todoService.updateTodo(todo).subscribe(new_todo => todo = new_todo);
+  }
 }
