@@ -1,0 +1,12 @@
+.fill-space {
+  flex: 1 1 auto;
+}
+
+.content {
+  padding: 16px;
+}
+
+.content mat-card {
+  width: 200px;
+}
+
