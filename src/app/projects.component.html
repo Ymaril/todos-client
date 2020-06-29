@@ -9,5 +9,6 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
-  <app-project fxFlex="33%" fxFlex.xs="100%" *ngFor="let project of projects" [project]="project"></app-project>
+  <app-project fxFlex="33%" fxFlex.xs="100%" *ngFor="let project of projects; trackBy:trackByFn" [project]="project">
+  </app-project>
 </div>

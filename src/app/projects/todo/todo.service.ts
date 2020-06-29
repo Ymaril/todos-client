@@ -7,16 +7,18 @@ import { catchError, map } from 'rxjs/operators';
 import { Todo } from '../../model/Todo';
 import { plainToClass } from 'class-transformer';
 
+import { environment } from "../../../environments/environment";
+
 @Injectable({ providedIn: 'root' })
 export class TodoService {
-  private todosUrl = 'https://mighty-dawn-42014.herokuapp.com/todos';
+  private todosUrl = `${environment.api_url}todos`;
 
   constructor(private http: HttpClient) { }
 
   addTodo(todo: Todo): Observable<Todo> {
-    return this.http.post<any[]>(this.todosUrl, {todo: todo})
+    return this.http.post<Todo>(this.todosUrl, {todo: todo})
       .pipe(
-        map(data => plainToClass(Todo, data as Object)),
+        map(data => plainToClass(Todo, data)),
         catchError(this.handleError<Todo>('addTodo', todo))
       );
   }
@@ -24,9 +26,9 @@ export class TodoService {
   updateTodo(todo: Todo): Observable<Todo> {
     const url = `${this.todosUrl}/${todo.id}`;
 
-    return this.http.patch<any[]>(url, {todo: todo})
+    return this.http.patch<Todo>(url, {todo: todo})
       .pipe(
-        map(data => plainToClass(Todo, data as Object)),
+        map(data => plainToClass(Todo, data)),
         catchError(this.handleError<Todo>('updateTodo', todo))
       );
   }

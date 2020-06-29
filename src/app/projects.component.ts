@@ -22,4 +22,8 @@ export class ProjectsComponent implements OnInit {
   openAddTodoDialog(): void {
     this.dialog.open(TodoDialogComponent, {width: '250px'});
   }
+
+  trackByFn(index, project) {
+    return project.id;
+  }
 }

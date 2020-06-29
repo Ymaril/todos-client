@@ -7,15 +7,17 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Project } from './model/Project';
 import { plainToClass } from 'class-transformer';
 
+import { environment } from "../environments/environment";
+
 @Injectable({ providedIn: 'root' })
 export class ProjectService {
-  private projectsUrl = 'https://mighty-dawn-42014.herokuapp.com/projects';
+  private projectsUrl = `${environment.api_url}projects`;
   public cached_projects: Project[] = [];
 
   constructor(private http: HttpClient) { }
 
   getProjects(): Observable<Project[]> {
-    return this.http.get<any[]>(this.projectsUrl, {responseType: 'json'})
+    return this.http.get<Project[]>(this.projectsUrl, {responseType: 'json'})
       .pipe(
         map(data => plainToClass(Project, data)),
         tap(projects => this.cached_projects = projects),

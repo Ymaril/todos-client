@@ -25,9 +25,13 @@ export class TodoDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<TodoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public projectService: ProjectService,
+    private projectService: ProjectService,
     private todoService: TodoService
   ) {}
+
+  getProjects() {
+    return this.projectService.cached_projects
+  }
 
   onSubmit(): void {
     this.todoService
@@ -36,5 +40,9 @@ export class TodoDialogComponent {
         this.projectService.cached_projects.find(project => project.id === todo.project_id).todos.push(todo);
         this.dialogRef.close(true);
       });
+  }
+
+  trackByFn(index, project) {
+    return project.id;
   }
 }
