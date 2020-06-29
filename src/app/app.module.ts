@@ -14,12 +14,18 @@ import { MatListModule } from '@angular/material/list';
 import { ProjectsComponent } from './projects.component';
 import { AppComponent } from './app.component';
 import { ProjectComponent } from './projects/project.component';
+import { TodoDialogComponent } from './todo-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
     AppComponent,
     ProjectsComponent,
-    ProjectComponent
+    ProjectComponent,
+    TodoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +37,11 @@ import { ProjectComponent } from './projects/project.component';
     MatButtonModule,
     MatCardModule,
     MatListModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatDialogModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

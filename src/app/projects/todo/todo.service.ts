@@ -13,13 +13,21 @@ export class TodoService {
 
   constructor(private http: HttpClient) { }
 
+  addTodo(todo: Todo): Observable<Todo> {
+    return this.http.post<any[]>(this.todosUrl, {todo: todo})
+      .pipe(
+        map(data => plainToClass(Todo, data as Object)),
+        catchError(this.handleError<Todo>('addTodo', todo))
+      );
+  }
+
   updateTodo(todo: Todo): Observable<Todo> {
     const url = `${this.todosUrl}/${todo.id}`;
 
     return this.http.patch<any[]>(url, {todo: todo})
       .pipe(
         map(data => plainToClass(Todo, data as Object)),
-        catchError(this.handleError<Todo>('setCompleted', todo))
+        catchError(this.handleError<Todo>('updateTodo', todo))
       );
   }
 

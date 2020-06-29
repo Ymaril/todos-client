@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Новая задача</h1>
+<form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <input matInput placeholder="Название задачи" formControlName="text" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-select formControlName="project_id" placeholder="Выберите категорию" required>
+        <mat-option
+                *ngFor="let project of projectService.cached_projects"
+                [value]="project.id"
+        >{{project.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Отмена</button>
+    <button mat-button type="submit" [disabled]="!todoForm.valid">Добавить</button>
+  </div>
+</form>
